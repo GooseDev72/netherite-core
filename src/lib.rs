@@ -1,39 +1,27 @@
-//! Netherite Core — evidence-based validation engine for proxy/subscription nodes.
+//! Netherite: subscription parser/builder CLI.
 //!
-//! Unique design goals:
-//! - **Evidence, not booleans**: every stage emits structured evidence.
-//! - **Hard gates + confidence scoring**: WORKING requires critical gates and confidence.
-//! - **Pluggable probes**: adapters (xray/mihomo/browser/mobile) feed evidence.
-//! - **Explainable debug traces**: every verdict can be audited.
+//! Architecture:
+//! - `netherite-core` (`core/`): reusable evidence-based validation engine.
+//! - `src/`: thin CLI/adapters over core + xray probe runtime + output formatting.
 //!
-//! Suitable as a Rust library; Python bindings can wrap this API (pyo3).
+//! The core is the source of truth for validation policy; src adapters feed
+//! probe evidence from real runtime tunnels (Xray/v2keylib).
 
-pub mod consensus;
-pub mod diag;
-pub mod dns;
+pub mod blacklist;
+pub mod check;
+pub mod cli;
+pub mod collect;
+pub mod config;
+pub mod dedup;
+pub mod error;
 pub mod geo;
-pub mod history;
-pub mod ip2asn;
-pub mod model;
+pub mod models;
+pub mod output;
 pub mod pipeline;
-pub mod probe;
-pub mod profile;
+pub mod progress;
 pub mod report;
-pub mod reputation;
-pub mod scoring;
-pub mod transport;
-pub mod v2;
-pub mod validate;
+pub mod settings;
+pub mod sources;
+pub mod util;
 
-pub use model::{
-    CanaryTarget, CheckContext, Confidence, Evidence, GeofencePolicy, GeoInfo, NodeCandidate,
-    NodeHistory, NodeReport, Stage, StageStatus, ValidationConfig, Verdict,
-};
-pub use pipeline::CorePipeline;
-pub use probe::Probe;
-pub use report::render_report;
-pub use geo::GeoProvider;
-pub use ip2asn::Ip2AsnTable;
-
-#[cfg(feature = "python")]
-pub mod python;
+pub use netherite_core as core;
