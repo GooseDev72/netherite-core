@@ -22,6 +22,7 @@ pub mod report;
 pub mod reputation;
 pub mod scoring;
 pub mod transport;
+pub mod v2;
 pub mod validate;
 
 pub use model::{
