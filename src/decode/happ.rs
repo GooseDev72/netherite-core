@@ -101,7 +101,8 @@ fn looks_like_scheme_link(s: &str) -> bool {
 }
 fn strip_prefix_ci<'a>(s: &'a str, prefix: &str) -> Option<&'a str> {
     if s.len() < prefix.len() { return None; }
-    if s[..prefix.len()].eq_ignore_ascii_case(prefix) { Some(&s[prefix.len()..]) } else { None }
+    let head = s.get(..prefix.len())?;
+    if head.eq_ignore_ascii_case(prefix) { Some(&s[prefix.len()..]) } else { None }
 }
 fn decrypt_crypt(ordinal: usize, payload: &str) -> Option<String> {
     let priv_key = load_pkcs1(ordinal)?;

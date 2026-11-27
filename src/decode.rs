@@ -64,4 +64,10 @@ mod tests {
         let out = decode_text(t);
         assert!(out.contains("vless://a@b:1"));
     }
+
+    #[test]
+    fn decode_any_handles_unicode_prefix() {
+        assert!(decode_any("🇫🇮 Finland node").is_none());
+        assert!(decode_any("hello 🌍 happ://notreal").is_none());
+    }
 }
