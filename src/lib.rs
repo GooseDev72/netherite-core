@@ -9,6 +9,7 @@
 //! Suitable as a Rust library; Python bindings can wrap this API (pyo3).
 
 pub mod consensus;
+pub mod decode;
 pub mod diag;
 pub mod dns;
 pub mod geo;
